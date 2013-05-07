@@ -1,5 +1,5 @@
 
-`#maps2graphs` is a social project/factory for creating #roadmap graphs based on #GoogleMapsAPI -- example: "Tokyo Family Marts" Graph
+`#maps2graphs` is a social project/factory for creating `#roadmap` graphs based on `#GoogleMapsAPI` -- example: "Tokyo Family Marts" Graph
 
 
 # Overview and Justification
