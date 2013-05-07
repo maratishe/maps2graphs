@@ -78,6 +78,11 @@ function start() { $( 'body').empty().grid( '0.15,0.85', '1', '#fff:0.2', functi
 		var text; G2.outer( 0, 0).myinput( 'lines', null, function( G3) { text = G3.inner( 0, 0); if ( msg) text.val( msg); })
 		G2.outer( 0, 1).empty().buttongrid( '1', '1', button, null, function() { eval( c)( donotparsejson ? text.val() : $.json2h( text.val()))}, $.io.style.canvas.alert)
 	})})}
+	var loadjson = function( $box, button, c, msg) { eval( makejson)( $box, button, function( url) { 
+		$box.stopTime().oneTime( '30s', function() { callback = null; eval( c)( null);})
+		callback = function( h) { $box.stopTime(); eval( c)( h); }
+		$.jsloadbytag( url);
+	}, msg, true)}
 	var makebuttons = function( $box, vdef, hdef, buttons, c) { if ( ! $box) $box = G.inner( 0, 0); $box.ioanimoutemptyin( 'fast', function() { $box.buttongrid( vdef, hdef, buttons, null, c, $.io.style.canvas.alert)})}
 	var maker = function() { eval( makebuttons)( null, '1', '0.4,0.6', 'new,existing', function( k) { 
 		if ( k == 'new') return eval( makejson)( null, 'make', function( text) { 
@@ -118,6 +123,33 @@ function start() { $( 'body').empty().grid( '0.15,0.85', '1', '#fff:0.2', functi
 				})})
 				
 			}; $.jsloadbytag( url); }, 'paste (GoogleDrive) URL to PUBLIC file here', true);
+			if ( k == 'add results') return G.inner( 0, 0).ioanimoutemptyin( 'fast', function() { G.inner( 0, 0).grid( '0.1,0.9', '1', null, function( G2) { 
+				G2.text( 0, 0, 'give me your <strong>PRIVATE URL</strong>, <strong>PUBLIC URL</strong>, and <strong>ADD DATA URL</strong>...').iofitext( null, true);
+				G2.outer( 1, 0).empty().grid( '1', '0.7,0.3', null, function( G3) { 
+					var PRI = null; var PUB = null; var ADD = null; 	
+					eval( makebuttons)( G3.outer( 0, 1), '1', '1', 'make', function() { })
+					G3.outer( 0, 0).empty().grid( '0.3,0.3,0.4', '1', null, function( G4) { 
+						var pri = function() { eval( loadjson)( G4.outer( 0, 0), 'load', function( h) { 
+							if ( ! h) return eval( pri)();	
+							var n = 0.5 + Math.sqrt( 0.25 + 2 * h.length);
+							if ( n != Math.round( n)) return eval( pri)();
+							PRI = h;
+							G4.outer( 0, 0).ioanimoutemptyin( 'fast', function() { G4.outer( 0, 0).append( 'OK, <strong>' + h.length + '</strong> lines').css({ 'font-size': $.io.defs.fonts.normal, color: '#000', 'text-align': 'right'}) })
+						}, 'paste your PRIVATE URL here, make sure it is the http://www.gdriveurl.com/output.php-style URL'); }
+						var pub = function() { eval( loadjson)( G4.outer( 1, 0), 'load', function( h) { 
+							if ( ! h) return eval( pub)();	
+							var n = 0.5 + Math.sqrt( 0.25 + 2 * h.length);
+							if ( n != Math.round( n)) return eval( pri)();
+							PRI = h;
+							G4.outer( 0, 0).ioanimoutemptyin( 'fast', function() { G4.outer( 0, 0).append( 'OK, <strong>' + h.length + '</strong> lines').css({ 'font-size': $.io.defs.fonts.normal, color: '#000', 'text-align': 'right'}) })
+						}, 'paste your PUBLIC URL here, make sure it is the http://www.gdriveurl.com/output.php-style URL'); }
+						var add = function() { eval( loadjson)( G4.outer( 2, 0), 'load', function( h) { }, 'paste URL for new data block here, do not forget to drag it by http://www.gdriveurl.com/output.php'); }
+						eval( pri)(); eval( pub)(); eval( add)();
+					})
+					
+				})
+				
+			})})
 			
 		});
 		
