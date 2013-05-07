@@ -154,8 +154,9 @@ function start() { $( 'body').empty().grid( '0.15,0.85', '1', '#fff:0.2', functi
 					var to = $.s642s( data[ ii + 1]);
 					//console.log( 'query:', pos, i, ii, from, to);
 					eval( directions)( from, to, function( R) { 
+						if ( ! R) eval( one)( $box);
 						R.pos = pos;
-						if ( R) results.push( $.h2json( R, true));
+						results.push( $.h2json( R, true));
 						eval( one)( $box);
 					})
 					
